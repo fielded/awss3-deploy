@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 
-var exec = require('child_process').exec
+var spawn = require('child_process').spawn
 
-exec(__dirname + '/deploy.sh', {maxBuffer: 1024 * 2000}, function (err, out) {
-  if (err) {
-    throw err
-  }
-  console.log(out)
+var deploy = spawn('ls')
+//var deploy = spawn(__dirname + '/deploy.sh')
+
+deploy.stdout.on('data', (data) => {
+  console.log(`deploy out: ${data}`)
+})
+
+deploy.stderr.on('data', (data) => {
+  console.log(`deploy error: ${data}`)
+})
+
+deploy.on('close', (code) => {
+  console.log(`child deploy process exited with code ${code}`)
 })
