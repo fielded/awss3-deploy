@@ -2,8 +2,7 @@
 
 var spawn = require('child_process').spawn
 
-var deploy = spawn('ls')
-//var deploy = spawn(__dirname + '/deploy.sh')
+var deploy = spawn(__dirname + '/deploy.sh')
 
 deploy.stdout.on('data', (data) => {
   console.log(`deploy out: ${data}`)
